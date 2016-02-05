@@ -18,7 +18,8 @@ public class UserServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = resp.getWriter();
         writer.println("<html><body>");
-        writer.println(" "+req.getContextPath()+"<br/>");
+
+        writer.println("/"+req.getContextPath()+"<br/>");
         writer.println(" "+req.getSession().getServletContext().getRealPath("/"));
 
         String username = null;
