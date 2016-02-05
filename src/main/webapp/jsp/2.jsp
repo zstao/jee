@@ -17,5 +17,13 @@
 
 <%--静态包含--%>
 <jsp:include page="public/bottom.jsp"></jsp:include>
+
+<%
+    pageContext.setAttribute("s", null);
+    request.setAttribute("s", null);
+    session.setAttribute("s", null);
+    application.setAttribute("s", null);
+%>
+
 </body>
 </html>

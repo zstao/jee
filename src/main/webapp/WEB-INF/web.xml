@@ -43,11 +43,27 @@
             <param-name>username</param-name>
             <param-value>zhang</param-value>
         </init-param>
-        <load-on-startup>1</load-on-startup>
+        <!--<load-on-startup>1</load-on-startup>-->
     </servlet>
 
     <servlet-mapping>
         <servlet-name>ScopeServlet</servlet-name>
         <url-pattern>/scope</url-pattern>
     </servlet-mapping>
+
+
+
+    <filter>
+        <filter-name>CharEncodingFilter</filter-name>
+        <filter-class>com.jee.filter.CharEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CharEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
