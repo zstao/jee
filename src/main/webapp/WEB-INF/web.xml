@@ -34,4 +34,20 @@
         <servlet-name>RegServlet</servlet-name>
         <url-pattern>/reg</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>ScopeServlet</servlet-name>
+        <servlet-class>com.jee.servlet.ScopeServlet</servlet-class>
+        <init-param>
+            <param-name>username</param-name>
+            <param-value>zhang</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ScopeServlet</servlet-name>
+        <url-pattern>/scope</url-pattern>
+    </servlet-mapping>
 </web-app>
