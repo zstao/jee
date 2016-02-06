@@ -10,11 +10,13 @@ public class DBUtil {
         String username = "root";
         String password = "";
         String url = "jdbc:mysql://localhost:3306/jee_shop";
+        String driver = "com.mysql.jdbc.Driver";
 
         Connection con = null;
         try {
+            Class.forName(driver); //指定连接类型
             con = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return con;

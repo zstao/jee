@@ -15,7 +15,6 @@ import java.util.List;
  * Created by ZSt on 2016/2/6.
  */
 public class UserDao implements IUserDao {
-    @Override
     public void add(User user) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -23,7 +22,8 @@ public class UserDao implements IUserDao {
 
         try {
             con = DBUtil.getConnection();
-            String sql = "select count(*) from user where username = ?";
+//            String sql = "select count(*) from user where username = ?";
+            String sql = "SELECT COUNT(*) FROM USER WHERE username = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getUsername());
             rs = ps.executeQuery();
@@ -31,7 +31,7 @@ public class UserDao implements IUserDao {
                 if (rs.getInt(1) > 0) throw new ShopException("用户已存在");
             }
 
-            sql = "INSERT INTO USER VALUES (NULL, ?, ?, ?)";
+            sql = "INSERT INTO USER (username, password, name) VALUES (?, ?, ?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
@@ -47,7 +47,6 @@ public class UserDao implements IUserDao {
         }
     }
 
-    @Override
     public void delete(int id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -67,7 +66,6 @@ public class UserDao implements IUserDao {
         }
     }
 
-    @Override
     public void update(User user) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -89,7 +87,6 @@ public class UserDao implements IUserDao {
         }
     }
 
-    @Override
     public User load(int id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -118,7 +115,6 @@ public class UserDao implements IUserDao {
         return u;
     }
 
-    @Override
     public List<User> list() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -148,7 +144,6 @@ public class UserDao implements IUserDao {
         return users;
     }
 
-    @Override
     public User login(String username, String password) {
         Connection con = null;
         PreparedStatement ps = null;
