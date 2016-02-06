@@ -1,4 +1,4 @@
-package com.jee.servlet;
+package com.jee.test.servlet;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

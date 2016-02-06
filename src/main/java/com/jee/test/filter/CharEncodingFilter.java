@@ -1,4 +1,4 @@
-package com.jee.filter;
+package com.jee.test.filter;
 
 import javax.servlet.*;
 import java.io.IOException;
