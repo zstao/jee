@@ -9,7 +9,7 @@ public class DBUtil {
     public static Connection getConnection(){
         String username = "root";
         String password = "";
-        String url = "jdbc:mysql://localhost:3306/jee_shop";
+        String url = "jdbc:mysql://localhost:3306/jee_shop?useUnicode=true&characterEncoding=UTF-8";
         String driver = "com.mysql.jdbc.Driver";
 
         Connection con = null;
