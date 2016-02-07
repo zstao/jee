@@ -15,6 +15,7 @@ import java.util.List;
  * Created by ZSt on 2016/2/6.
  */
 public class UserDao implements IUserDao {
+    @Override
     public void add(User user) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -47,6 +48,7 @@ public class UserDao implements IUserDao {
         }
     }
 
+    @Override
     public void delete(int id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -66,6 +68,7 @@ public class UserDao implements IUserDao {
         }
     }
 
+    @Override
     public void update(User user) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -87,6 +90,7 @@ public class UserDao implements IUserDao {
         }
     }
 
+    @Override
     public User load(int id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -115,6 +119,7 @@ public class UserDao implements IUserDao {
         return u;
     }
 
+    @Override
     public List<User> list() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -144,6 +149,7 @@ public class UserDao implements IUserDao {
         return users;
     }
 
+    @Override
     public User login(String username, String password) {
         Connection con = null;
         PreparedStatement ps = null;
