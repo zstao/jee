@@ -18,7 +18,7 @@
     List<User> users = userDao.list();
 %>
 <body>
-<jsp:include page="include.jsp"></jsp:include>
+<jsp:include page="include.jsp" />
 <table align="center" border="1" width="600">
     <tr>
         <td>id</td><td>用户名</td><td>密码</td><td>姓名</td><td>操作</td>
