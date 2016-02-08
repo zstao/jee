@@ -25,10 +25,12 @@ public class AdminCheckFilter implements Filter {
         HttpSession session = request.getSession();
         if (session == null) {
             response.sendRedirect(request.getContextPath() + "/shop/loginInput.jsp");
+            return;
         } else {
             User user = (User) session.getAttribute("loginUser");
             if (user == null) {
                 response.sendRedirect(request.getContextPath() + "/shop/loginInput.jsp");
+                return;
             }
         }
 
