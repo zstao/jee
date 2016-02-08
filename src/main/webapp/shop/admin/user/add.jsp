@@ -22,6 +22,8 @@
 
     try {
         userDao.add(u);
+        response.sendRedirect("list.jsp");
+//        return;
 %>
     添加用户成功! <a href="addInput.jsp">添加用户</a>&nbsp;<a href="list.jsp">用户列表</a>
 <%
