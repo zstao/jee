@@ -1,16 +1,18 @@
 package com.jee.shop.util;
 
 import java.sql.*;
+import java.util.Properties;
 
 /**
  * Created by ZSt on 2016/2/6.
  */
 public class DBUtil {
     public static Connection getConnection(){
-        String username = "root";
-        String password = "";
-        String url = "jdbc:mysql://localhost:3306/jee_shop?useUnicode=true&characterEncoding=UTF-8";
-        String driver = "com.mysql.jdbc.Driver";
+        Properties properties = PropertiesUtil.getJdbcProp();
+        String username = properties.getProperty("username");
+        String password = properties.getProperty("password");
+        String url = properties.getProperty("url");
+        String driver = properties.getProperty("driver");
 
         Connection con = null;
         try {
