@@ -1,5 +1,3 @@
-package com.jee.shop.util;
-
 import java.io.IOException;
 import java.util.Properties;
 
@@ -12,7 +10,7 @@ public class TestProp {
         try {
             Properties properties = new Properties();
             properties.load(TestProp.class.getClassLoader().getResourceAsStream("jdbc.properties"));
-            String username = properties.getProperty("username");
+            String username = properties.getProperty("driver");
             System.out.println(username);
         } catch (IOException e) {
             e.printStackTrace();
