@@ -1,6 +1,7 @@
 package com.jee.shop.model;
 
 
+import com.jee.shop.mapper.UserMapper;
 import com.jee.shop.util.MybatisUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -74,6 +75,7 @@ public class TestMybatis {
             session = MybatisUtil.createSession();
 
             User user = session.selectOne(User.class.getName() + ".load", 1);
+//            User user = session.getMapper(UserMapper.class).load(1);
             System.out.println(user.getUsername());
 
         } catch (Exception e) {

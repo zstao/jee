@@ -6,7 +6,8 @@
 <configuration>
     <properties resource="jdbc.properties" />
     <typeAliases>
-        <typeAlias type="com.jee.shop.model.User" alias="User" />
+        <!--<typeAlias type="com.jee.shop.model.User" alias="User" />-->
+        <package name="com.jee.shop.model" />
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -21,5 +22,6 @@
     </environments>
     <mappers>
         <mapper resource="User.xml" />
+        <!--<mapper class="com.jee.shop.mapper.UserMapper" />-->
     </mappers>
 </configuration>
