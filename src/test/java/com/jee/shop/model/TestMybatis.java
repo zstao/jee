@@ -1,10 +1,13 @@
 package com.jee.shop.model;
 
 
+import com.jee.shop.util.MybatisUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,35 +17,38 @@ import java.io.InputStream;
  */
 public class TestMybatis {
 
-    public static void main(String[] args) {
-        testUpdate();
-    }
+    @Test
+    public void testAdd() {
+//        System.out.println("add");
+//        int a = 3;
+//        Assert.assertEquals(a, 3);
 
-    public static void testInsert(){
-        InputStream inputStream = null;
+        SqlSession session = null;
         try {
-            inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-            SqlSession session = sqlSessionFactory.openSession();
+            session = MybatisUtil.createSession();
 
             User user = new User();
-            user.setUsername("a");
+            user.setUsername("b");
             user.setPassword("123");
+            user.setNickname("出版社");
             user.setType(0);
-            user.setNickname("城市");
 
-            session.insert("com.jee.shop.model.User.add", user);
+            session.insert(User.class.getName() + ".add", user);
             session.commit();
-            session.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            session.rollback();
+        } finally {
+            MybatisUtil.closeSession(session);
         }
     }
 
-    public static void testUpdate(){
-        InputStream inputStream = null;
+    @Test
+    public void testUpdate() {
+        System.out.println("update");
+
         try {
-            inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+            InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
             SqlSession session = sqlSessionFactory.openSession();
 
@@ -51,13 +57,31 @@ public class TestMybatis {
             user.setUsername("a");
             user.setPassword("123");
             user.setType(0);
-            user.setNickname("城市123");
+            user.setNickname("城市");
 
-            session.update("com.jee.shop.model.User.update", user);
+            session.update(User.class.getName() + ".update", user);
             session.commit();
             session.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testLoad() {
+        SqlSession session = null;
+        try {
+            session = MybatisUtil.createSession();
+
+            User user = session.selectOne(User.class.getName() + ".load", 1);
+            System.out.println(user.getUsername());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MybatisUtil.closeSession(session);
+        }
+
+    }
+
 }

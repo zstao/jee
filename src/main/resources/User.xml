@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jee.shop.model.User">
-    <insert id="add" parameterType="com.jee.shop.model.User">
+    <insert id="add" parameterType="User">
         INSERT INTO USER (username, password, nickname, type)
         VALUES (#{username}, #{password}, #{nickname}, #{type})
     </insert>
     
-    <update id="update" parameterType="com.jee.shop.model.User">
+    <update id="update" parameterType="User">
         update USER set
           username = #{username},
           password = #{password},
@@ -21,4 +21,8 @@
     <delete id="delete" parameterType="int">
         delete from USER where id = #{id}
     </delete>
+
+    <select id="load" parameterType="int" resultType="User">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
 </mapper>
