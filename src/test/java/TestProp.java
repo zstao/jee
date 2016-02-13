@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -5,7 +7,9 @@ import java.util.Properties;
  * Created by ZSt on 2016/2/10.
  */
 public class TestProp {
-    public static void main(String[] args) {
+
+    @Test
+    public void testJdbcProp(){
 
         try {
             Properties properties = new Properties();
@@ -16,4 +20,5 @@ public class TestProp {
             e.printStackTrace();
         }
     }
+
 }
