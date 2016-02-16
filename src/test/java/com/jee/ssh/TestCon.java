@@ -2,6 +2,7 @@ package com.jee.ssh;
 
 import com.jee.ssh.util.HibernateUtil;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.Test;
 
@@ -18,6 +19,8 @@ public class TestCon {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
 
+
+            // TODO: 2016/2/14
 
             session.getTransaction().commit();
         } catch (HibernateException e) {
