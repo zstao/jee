@@ -13,7 +13,15 @@
 
 
     <context:component-scan base-package="com.jee.ssh.controller" />
-    <mvc:annotation-driven />
+
+    <mvc:annotation-driven>
+        <!--json转换-->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
 
     <bean name="/welcome.html" class="com.jee.ssh.controller.WelcomeController" />
 
