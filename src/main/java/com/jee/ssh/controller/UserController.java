@@ -3,6 +3,9 @@ package com.jee.ssh.controller;
 import com.jee.ssh.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,6 +37,7 @@ public class UserController {
     }
 
 
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model){
         model.addAttribute(new User());
@@ -41,9 +45,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(User user){
+    public String add(@Validated User user, BindingResult result){
+        if(result.hasErrors()){
+            return "user/add";
+        }
         users.put(user.getUsername(), user);
-        System.out.println("redirect: /");
+        return "redirect:/user/users";
+    }
+
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public String show(@PathVariable String username, Model model){
+        model.addAttribute(users.get(username));
+        return "user/show";
+    }
+
+
+    @RequestMapping(value = "/{username}/delete", method = RequestMethod.GET)
+    public String delete(@PathVariable String username){
+        users.remove(username);
         return "redirect:/user/users";
     }
 }

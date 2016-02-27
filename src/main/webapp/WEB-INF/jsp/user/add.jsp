@@ -6,11 +6,13 @@
 </head>
 <body>
 <form:form method="post" modelAttribute="user">
-    用户名： <form:input path="username" /> <br>
-    密 码：  <form:input path="password" /> <br>
-    姓名：   <form:input path="name" /> <br>
-    邮箱：   <form:input path="email" /> <br>
+
+    用户名：<form:input path="username"/><form:errors path="username" cssClass="error"/> <br>
+    密 码： <form:password path="password"/> <form:errors path="password"/> <br>
+    姓名： <form:input path="name"/> <br>
+    邮箱： <form:input path="email"/>  <form:errors path="email"/> <br>
     <input type="submit" value="添加">
+
 </form:form>
 </body>
 </html>

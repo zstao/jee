@@ -11,7 +11,11 @@
 
 <body>
     <c:forEach items="${users}" var="user" >
-        ${user.value.username}----${user.value.password} <br>
+        ${user.value.username}
+        ----${user.value.password}
+        ----<a href="${user.value.username}">${user.value.name}</a>
+        ----<a href="${user.value.username}/delete">删除</a>
+        <br>
     </c:forEach>
 </body>
 </html>
