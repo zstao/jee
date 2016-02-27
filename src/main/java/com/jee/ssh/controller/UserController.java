@@ -1,6 +1,7 @@
 package com.jee.ssh.controller;
 
 import com.jee.ssh.model.User;
+import com.jee.ssh.model.UserException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,6 +66,19 @@ public class UserController {
     @RequestMapping(value = "/{username}/delete", method = RequestMethod.GET)
     public String delete(@PathVariable String username){
         users.remove(username);
+        return "redirect:/user/users";
+    }
+
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(String username, String password, HttpSession session){
+        if(!users.containsKey(username)) {
+            throw new UserException("用户名不存在");
+        }
+        if(!users.get(username).getPassword().equals(password)){
+            throw new UserException("密码不正确");
+        }
+        session.setAttribute("loginUser", users.get(username));
         return "redirect:/user/users";
     }
 }
