@@ -12,7 +12,12 @@ public class CharEncodingFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        String e = filterConfig.getInitParameter("encoding");
+        if(e == null || "".equals(e.trim())){
 
+        }else{
+            encoding = e;
+        }
     }
 
     @Override
