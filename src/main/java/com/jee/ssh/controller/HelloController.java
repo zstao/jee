@@ -1,6 +1,7 @@
 package com.jee.ssh.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloController {
 
     @RequestMapping({"/hello", "/"})
-    public String hello(){
-        System.out.println("hello");
+    public String hello(String username, Model model){
+        model.addAttribute("username", username);
+        System.out.println("hello " + username);
         return "hello";
     }
 }
