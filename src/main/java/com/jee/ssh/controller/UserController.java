@@ -2,6 +2,7 @@ package com.jee.ssh.controller;
 
 import com.jee.ssh.model.User;
 import com.jee.ssh.model.UserException;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,8 +10,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,9 +53,18 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@Validated User user, BindingResult result){
+    public String add(@Validated User user, BindingResult result, @RequestParam("attachs") MultipartFile[] attachs, HttpServletRequest httpServletRequest) throws IOException {
         if(result.hasErrors()){
             return "user/add";
+        }
+//        System.out.println(attach.getName()+","+attach.getOriginalFilename());
+        String realpath = httpServletRequest.getSession().getServletContext().getRealPath("/resources/upload");
+//        realpath = "D:\\JetBrains_Workspace\\IdeaProjects\\JEE\\src\\main\\webapp\\resources\\upload";
+        System.out.println(realpath);
+        for(MultipartFile attach : attachs){
+            if(attach.isEmpty()) continue;
+            File f = new File(realpath+"/"+attach.getOriginalFilename());
+            FileUtils.copyInputStreamToFile(attach.getInputStream(), f);
         }
         users.put(user.getUsername(), user);
         return "redirect:/user/users";
