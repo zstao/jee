@@ -45,6 +45,11 @@ public class UserDao extends HibernateDaoSupport implements IUserDao{
     }
 
     @Override
+    public User loadByUsername(String username) {
+        return  (User) this.getSessionFactory().getCurrentSession().createQuery("from User where username=?").setParameter(0, username).uniqueResult();
+    }
+
+    @Override
     public List list() {
         return this.getSessionFactory().getCurrentSession().createQuery("from User").list();
     }
@@ -66,4 +71,5 @@ public class UserDao extends HibernateDaoSupport implements IUserDao{
         us.setTotal(total);
         return us;
     }
+
 }

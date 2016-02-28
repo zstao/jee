@@ -22,7 +22,7 @@
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
-    <context:property-placeholder location="jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 
 
     <!--hibernate SessionFactory-->
@@ -45,26 +45,43 @@
 
 
     <!--事务管理器-->
-    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
 
     <!--事务管理-->
-    <aop:config>
-        <aop:pointcut id="allServiceMethods"
-                      expression="execution(* com.jee.ssh.service.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="allServiceMethods"/>
-    </aop:config>
+    <bean id="transactionBese"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+          lazy-init="true" abstract="true">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="update*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="insert*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="modify*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="del*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="get*">PROPAGATION_NEVER</prop>
+            </props>
+        </property>
+    </bean>
 
-    <tx:advice id="txAdvice" transaction-manager="txManager">
-        <tx:attributes>
-            <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="allServiceMethods"-->
+                      <!--expression="execution(* com.jee.ssh.service.*(..))"/>-->
+        <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="allServiceMethods"/>-->
+    <!--</aop:config>-->
 
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <tx:method name="del*" propagation="REQUIRED"/>
-            <tx:method name="update*" propagation="REQUIRED"/>
-            <tx:method name="save*" propagation="REQUIRED"/>
-        </tx:attributes>
-    </tx:advice>
+    <!--<tx:advice id="txAdvice" transaction-manager="txManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="*" propagation="REQUIRED" read-only="true"/>-->
+
+            <!--<tx:method name="add*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="del*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="update*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="save*" propagation="REQUIRED"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
 </beans>
