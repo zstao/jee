@@ -3,12 +3,20 @@ package com.jee.ssh.model;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 /**
  * Created by ZSt on 2016/2/13.
  */
+
+@Entity
+@Table(name = "user")
 public class User {
+    private int id;
     private String username;
     private String password;
     private String name;
@@ -22,6 +30,16 @@ public class User {
         this.password = password;
         this.name = name;
         this.email = email;
+    }
+
+    @Id
+    @GeneratedValue
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @NotEmpty(message = "用户名不能为空")
