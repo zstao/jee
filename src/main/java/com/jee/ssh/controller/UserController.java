@@ -2,7 +2,9 @@ package com.jee.ssh.controller;
 
 import com.jee.ssh.model.User;
 import com.jee.ssh.model.UserException;
+import com.jee.ssh.service.IUserService;
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -25,6 +28,19 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
+    private IUserService userService;
+
+    public IUserService getUserService() {
+        return userService;
+    }
+
+    @Resource
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
+
+
+    /*
     private Map<String, User> users = new HashMap<String, User>();
 
     public UserController() {
@@ -99,4 +115,7 @@ public class UserController {
         session.setAttribute("loginUser", users.get(username));
         return "redirect:/user/users";
     }
+
+    */
+
 }
